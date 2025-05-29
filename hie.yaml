@@ -1,0 +1,8 @@
+cradle:
+  cabal:
+    - path: "./src"
+      component: "lib:pipewire-hs"
+    - path: "./test"
+      component: "test:pipewire-hs-tests"
+    - path: "./app"
+      component: "exe:pipewire-hs"
