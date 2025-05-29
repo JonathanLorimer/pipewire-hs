@@ -1,0 +1,59 @@
+# Custom type mappings for PipeWire-specific types
+
+mappings:
+  # PipeWire object types
+  - c-type: "struct pw_core *"
+    hs-type: "Ptr PwCore"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_context *"
+    hs-type: "Ptr PwContext"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_loop *"
+    hs-type: "Ptr PwLoop"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_node *"
+    hs-type: "Ptr PwNode"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_port *"
+    hs-type: "Ptr PwPort"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_link *"
+    hs-type: "Ptr PwLink"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct pw_registry *"
+    hs-type: "Ptr PwRegistry"
+    hs-storable: false
+    newtype: true
+
+  # SPA types
+  - c-type: "struct spa_hook *"
+    hs-type: "Ptr SpaHook"
+    hs-storable: false
+    newtype: true
+
+  - c-type: "struct spa_dict *"
+    hs-type: "Ptr SpaDict"
+    hs-storable: false
+    newtype: true
+
+  # Enum types
+  - c-type: "enum pw_direction"
+    hs-type: "CInt"
+    hs-enum: "PwDirection"
+    enum-members:
+      - c-name: "PW_DIRECTION_INPUT"
+        hs-name: "PwDirectionInput"
+      - c-name: "PW_DIRECTION_OUTPUT"
+        hs-name: "PwDirectionOutput"

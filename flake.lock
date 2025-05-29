@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "hs-bindgen-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748419481,
+        "narHash": "sha256-stNInflUc2LlWQaok75uGb2nNOxkPUIX4/DWawcTcE4=",
+        "owner": "well-typed",
+        "repo": "hs-bindgen",
+        "rev": "ee349898d36aa6452f516c34c83350d0ac983eb4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "well-typed",
+        "repo": "hs-bindgen",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1748406211,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "hs-bindgen-src": "hs-bindgen-src",
         "nixpkgs": "nixpkgs"
       }
     }
