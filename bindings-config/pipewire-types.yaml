@@ -1,0 +1,85 @@
+# PipeWire type mappings for hs-bindgen
+
+# This file can be referenced using --external-bindings parameter
+# Example: hs-bindgen-cli ... --external-bindings bindings-config/pipewire-types.yaml
+
+types:
+  # PipeWire core types
+  - c-name: "struct pw_core"
+    hs-name: "PwCore"
+    opaque: true
+  
+  - c-name: "struct pw_context"
+    hs-name: "PwContext"
+    opaque: true
+  
+  - c-name: "struct pw_loop"
+    hs-name: "PwLoop"
+    opaque: true
+  
+  - c-name: "struct pw_node"
+    hs-name: "PwNode"
+    opaque: true
+  
+  - c-name: "struct pw_port"
+    hs-name: "PwPort"
+    opaque: true
+  
+  - c-name: "struct pw_link"
+    hs-name: "PwLink"
+    opaque: true
+  
+  - c-name: "struct pw_registry"
+    hs-name: "PwRegistry"
+    opaque: true
+  
+  - c-name: "struct pw_properties"
+    hs-name: "PwProperties"
+    opaque: true
+  
+  - c-name: "struct pw_stream"
+    hs-name: "PwStream"
+    opaque: true
+  
+  - c-name: "struct pw_filter"
+    hs-name: "PwFilter"
+    opaque: true
+  
+  - c-name: "struct pw_global"
+    hs-name: "PwGlobal"
+    opaque: true
+  
+  - c-name: "struct pw_proxy"
+    hs-name: "PwProxy"
+    opaque: true
+  
+  # SPA related types
+  - c-name: "struct spa_hook"
+    hs-name: "SpaHook"
+    opaque: true
+  
+  - c-name: "struct spa_dict"
+    hs-name: "SpaDict"
+    opaque: true
+  
+  - c-name: "struct spa_pod"
+    hs-name: "SpaPod"
+    opaque: true
+  
+  # Common enum types
+  - c-name: "enum pw_direction"
+    hs-name: "PwDirection"
+    enum:
+      - c-name: "PW_DIRECTION_INPUT"
+        hs-name: "PwDirectionInput"
+      - c-name: "PW_DIRECTION_OUTPUT"
+        hs-name: "PwDirectionOutput"
+
+  # Event structures - these will need special handling
+  - c-name: "struct pw_core_events"
+    hs-name: "PwCoreEvents"
+    opaque: true
+  
+  - c-name: "struct pw_registry_events"
+    hs-name: "PwRegistryEvents"
+    opaque: true

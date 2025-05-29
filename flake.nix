@@ -39,12 +39,14 @@
           versions = hfinal: hprev: {
             Diff = hfinal.callHackage "Diff" "1.0.1.1" {};
             data-default = hfinal.callHackage "data-default" "0.8.0.1" {};
+            # Leaving these as they may be needed if we want to pull
+            # hls from hsPkgs
             # fourmolu = hfinal.callHackage "fourmolu" "0.17.0.0" {};
             # Cabal-syntax = hfinal.Cabal-syntax_3_12_1_0;
             # ghc-lib-parser = hfinal.ghc-lib-parser_9_10_1_20250103;
           };
 
-          hsbindgen = hfinal: hprev: {
+          hs-bindgen = hfinal: hprev: {
             hs-bindgen = hlib.dontCheck (hfinal.callCabal2nix "hs-bindgen" "${hs-bindgen-src}/hs-bindgen" {});
             hs-bindgen-runtime = hlib.dontCheck (hfinal.callCabal2nix "hs-bindgen-runtime" "${hs-bindgen-src}/hs-bindgen-runtime" {});
             ansi-diff = hfinal.callCabal2nix "ansi-diff" "${hs-bindgen-src}/ansi-diff" {};
@@ -73,7 +75,7 @@
           hsPkgs = pkgs.haskellPackages.extend (pkgs.lib.composeManyExtensions [
             fixes
             versions
-            hsbindgen
+            hs-bindgen
             project
           ]);
         });
@@ -88,6 +90,7 @@
       ...
     }:
       hsPkgs.shellFor {
+        stdenv = pkgs.clangStdenv;
         # withHoogle = true;
         packages = p: [
           p.pipewire-hs
@@ -105,8 +108,20 @@
             pipewire
             pkg-config
             libclang
+            glibc.dev
+            libgcc
           ]
           ++ (builtins.attrValues (import ./scripts.nix {s = pkgs.writeShellScriptBin;}));
+
+        # Set up a local includes directory with symlinks to PipeWire headers
+        shellHook = ''
+          # Create a local includes directory for PipeWire headers
+          mkdir -p ./.includes
+
+          # Link PipeWire headers with simplified paths
+          ln -sfn ${pkgs.pipewire.dev}/include/pipewire-0.3/pipewire ./.includes/pipewire
+          ln -sfn ${pkgs.pipewire.dev}/include/spa-0.2/spa ./.includes/spa
+        '';
       });
 
     # nix build
