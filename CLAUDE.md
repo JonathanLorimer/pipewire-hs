@@ -77,9 +77,6 @@ pipewire-hs/
 
 ### Setup
 ```bash
-# Generate bindings from PipeWire headers
-hs-bindgen --config bindings-config/bindings.yaml
-
 # Build the project
 cabal build
 ```
@@ -107,17 +104,72 @@ cabal test
 
 ### Binding Generation
 ```bash
-# Regenerate all bindings
-hs-bindgen --config bindings-config/bindings.yaml
+# Basic examples
+hs-bindgen-cli\
+  preprocess \
+    -i manual_examples.h \
+    -I ../hs-bindgen/examples \
+    -o hs/manual/generated/Example.hs \
+    --module Example
 
-# Generate specific module bindings
-hs-bindgen --config bindings-config/bindings.yaml --module Core
+hs-bindgen-cli \
+  preprocess \
+    -i structs.h \
+    -I c \
+    -o hs/manual/generated/Structs.hs \
+    --module Structs
 
-# Check what headers are being processed
-hs-bindgen --config bindings-config/bindings.yaml --dry-run
+# External bindings: vector example
 
-# Validate binding configuration
-hs-bindgen --config bindings-config/bindings.yaml --validate
+hs-bindgen-cli \
+  preprocess \
+    -i vector.h \
+    -I c \
+    -o hs/hs-vector/generated/Vector.hs \
+    --gen-external-bindings external/vector.yaml \
+    --module Vector
+
+hs-bindgen-cli \
+  preprocess \
+    -i vector_rotate.h \
+    -I c \
+    -o hs/hs-vector/generated/Vector/Rotate.hs \
+    --external-bindings external/vector.yaml \
+    --module Vector.Rotate
+
+hs-bindgen-cli \
+  preprocess \
+    -i vector_length.h \
+    -I c \
+    -o hs/hs-vector/generated/Vector/Length.hs \
+    --external-bindings external/vector.yaml \
+    --external-bindings external/length.yaml \
+    --module Vector.Length
+
+# External bindings: game example
+
+hs-bindgen-cli \
+  preprocess \
+    -i game_internal.h \
+    -I c \
+    -o hs/hs-game/generated/Game/State.hs \
+    --module Game.State
+
+hs-bindgen-cli \
+  preprocess \
+    -i game_world.h \
+    -I c \
+    -o hs/hs-game/generated/Game/World.hs \
+    --external-bindings external/game.yaml \
+    --module Game.World
+
+hs-bindgen-cli \
+  preprocess \
+    -i game_player.h \
+    -I c \
+    -o hs/hs-game/generated/Game/Player.hs \
+    --external-bindings external/game.yaml \
+    --module Game.Player
 ```
 
 ## Important Files
